@@ -1,7 +1,7 @@
 
 import javax.swing.JOptionPane;
 import java.sql.*;
-import project.SelectLogins;
+import project.Select;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -150,7 +150,7 @@ public class login extends javax.swing.JFrame {
          }
          else
          {
-            ResultSet rs = SelectLogins.getData("select * from users where email='"+email+"' and password='"+password+"'");
+            ResultSet rs = Select.getData("select * from users where email='"+email+"' and password='"+password+"'");
             try 
             {
                 if(rs.next())

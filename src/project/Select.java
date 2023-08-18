@@ -11,7 +11,7 @@ import project.ConnectionProvider;
  *
  * @author EMMANUEL-YEGON
  */
-public class SelectLogins {
+public class Select {
     public static ResultSet getData(String query)
     {
         Connection con = null;
