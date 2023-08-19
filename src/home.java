@@ -55,12 +55,22 @@ public class home extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(102, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer Registration & Check IN.png"))); // NOI18N
         jButton2.setText("Customer Check IN");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 16, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(102, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer Check Out.png"))); // NOI18N
         jButton3.setText("Customer Check Out");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 16, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
@@ -119,6 +129,14 @@ public class home extends javax.swing.JFrame {
         
         new manageRoom().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new customerCheckIn().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new customerCheckOut().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
