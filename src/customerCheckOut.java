@@ -1,3 +1,8 @@
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -195,6 +200,11 @@ public class customerCheckOut extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Check Out");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 354, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(102, 0, 0));
@@ -293,6 +303,78 @@ public class customerCheckOut extends javax.swing.JFrame {
         setVisible(false);
         new customerCheckOut().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String name = jTextField2.getText();
+        String mobileNumber = jTextField5.getText();
+        String email = jTextField9.getText();
+        
+        String checkOut = jTextField4.getText();
+        String numberOfDaysStay = jTextField7.getText();
+        String totalAmount = jTextField8.getText();
+        roomNo = jTextField1.getText();
+        Query = "update customer set numberOfDaysStay='"+numberOfDaysStay+"', totalAmount='"+totalAmount+"', checkout='"+checkOut+"' where id ='"+id+"'";
+        InsertUpdateDelete.setData(Query, "");
+        Query = "update room set status='Not Booked' where roomNo='"+roomNo+"'";
+        InsertUpdateDelete.setData(Query, "");
+        String path="C:\\Users\\EMMANUEL-YEGON\\Downloads\\hotel_mgmt_bills";
+        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+        
+        try
+        {
+            PdfWriter.getInstance(doc, new FileOutputStream(path+""+id+".pdf"));
+            doc.open();
+            Paragraph paragraph1 = new Paragraph("                                                     BTech Days Hotel Management System\n");
+            doc.add(paragraph1);          
+            Paragraph paragraph2 = new Paragraph("***************************************************************************************************************");
+            doc.add(paragraph2);            
+            Paragraph paragraph3 = new Paragraph("\tBill ID: "+id+"\nCustomer Details:\nName: "+name+"\nMobile Number: "+mobileNumber+"\nEmail: "+email+"\n");
+            doc.add(paragraph3);
+            doc.add(paragraph2);          
+            Paragraph paragraph4 = new Paragraph("\tRoom Details: \nNumber: "+jTextField1.getText()+"\nType: "+roomType+"\nBed: "+bed+"\nPrice Per Day: "+jTextField6.getText()+"");
+            doc.add(paragraph4);
+            doc.add(paragraph2);
+            
+            PdfPTable tbl1 = new PdfPTable(4);
+            tbl1.addCell("Check IN Date: "+jTextField3.getText());
+            tbl1.addCell("Check Out Date: "+checkOut);
+            tbl1.addCell("No of Days Stay: "+numberOfDaysStay);
+            tbl1.addCell("Total Amount Paid: "+totalAmount);
+            doc.add(tbl1);
+            doc.add(paragraph2);
+            
+            Paragraph paragraph5 = new Paragraph("Thank you, Please Visit Again");
+            doc.add(paragraph5); 
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        doc.close();
+        int a = JOptionPane.showConfirmDialog(null,"Do you want to Print Bill","Select", JOptionPane.YES_NO_OPTION);
+        if(a==0)
+        {
+            try
+            {
+                if((new File("C:\\Users\\EMMANUEL-YEGON\\Downloads\\hotel_mgmt_bills " +id+".pdf")).exists())
+                {
+                    Process p = Runtime
+                            .getRuntime()
+                            .exec("rundll32 url.dll,FileProtocolHandler C:\\Users\\EMMANUEL-YEGON\\Downloads\\hotel_mgmt_bills " +id+".pdf");                           
+                }
+                else
+                {
+                    System.out.println("File does not Exists");
+                }
+            }
+            catch(Exception e)
+            {
+                 JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        setVisible(false);
+        new customerCheckOut().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
